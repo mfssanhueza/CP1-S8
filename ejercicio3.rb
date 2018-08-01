@@ -1,4 +1,4 @@
-def contador_palabras (archivo)
+def contador_palabras(archivo)
   file = File.open(archivo, 'r')
   lines = file.readlines
   words = []
@@ -13,13 +13,16 @@ end
 
 def contador_palabras_string(archivo, string)
   file = File.open(archivo, 'r')
+  counter = 0
   lines = file.readlines
-  array = []
-  lines.each do |ele|
-    array.push(ele.split(' '))
+  lines.each do |line|
+    clear_lines = line.gsub('.', '').gsub(':','').split(' ')
+    clear_lines.each do |element|
+      counter = counter+1 if element.upcase == string.upcase
+    end
   end
-  words = array.flatten.map(&:upcase)
-  puts words.include?(string.upcase)
+
   file.close
+  puts counter
 end
 contador_palabras_string('ejercicio2.txt', 'galaxias')
